@@ -8,7 +8,7 @@ public class PaymentTest extends BaseRunner {
 
   @Test
   public void testPayment(){
-    driver.get("https://www.tinkoff.ru/");
+    driver.get(BASE_URL);
     driver.findElement(By.xpath("//div[@id='x48761']/div[3]/div/div/div/div/div/div/div/div/div/div[6]/a/span")).click();
     driver.findElement(By.xpath("//input[@id='']")).click();
     driver.findElement(By.xpath("//input[@id='']")).clear();
