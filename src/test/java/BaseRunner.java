@@ -1,6 +1,6 @@
-import org.openqa.selenium.WebDriver;
-
 import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -9,7 +9,9 @@ public class BaseRunner {
   private static ThreadLocal<WebDriver> webDriverThreadLocal = new ThreadLocal<>();
 
   WebDriver driver;
+
   static String BASE_URL = "https://www.tinkoff.ru/";
+  static String GOOGLE_URL = "https://www.google.com/";
 
   @BeforeClass(alwaysRun = true)
   public void setUp() {

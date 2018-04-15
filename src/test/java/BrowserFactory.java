@@ -3,20 +3,26 @@ import java.util.Locale;
 import java.util.Objects;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 
 public enum BrowserFactory {
   chrome {
     public WebDriver create() {
       setUpDriver(CHROME);
-      return new ChromeDriver();
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--disable-notifications");
+      return new ChromeDriver(options);
     }
   },
   firefox {
     public WebDriver create() {
       setUpDriver(FIREFOX);
-      return new FirefoxDriver();
+      FirefoxOptions options = new FirefoxOptions();
+      options.addPreference("dom.webnotifications.enabled", false);
+      return new FirefoxDriver(options);
     }
   };
 
