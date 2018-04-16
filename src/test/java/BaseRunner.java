@@ -1,7 +1,9 @@
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 
 public class BaseRunner {
 
@@ -12,7 +14,7 @@ public class BaseRunner {
   static String BASE_URL = "https://www.tinkoff.ru/";
   static String GOOGLE_URL = "https://www.google.com/";
 
-  @BeforeClass(alwaysRun = true)
+  @BeforeTest(alwaysRun = true)
   public void setUp() {
     if (webDriverThreadLocal.get() != null) {
       driver = webDriverThreadLocal.get();
@@ -32,7 +34,7 @@ public class BaseRunner {
   }
 
 
-  @AfterClass(alwaysRun = true)
+  @AfterTest(alwaysRun = true)
   public void tearDown() {
     driver.quit();
   }

@@ -1,20 +1,25 @@
 import java.util.NoSuchElementException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 
 public class CalculatorTest extends BaseRunner{
   @Test
-  public void testCalc() throws InterruptedException {
+  public void testCalc() {
     driver.get(BASE_URL);
     driver.findElement(By.xpath("//*[@id=\"firstMenu\"]/li[5]/span/a")).click();
     driver.findElement(By.xpath("//*[@id=\"xca7ce\"]/div[3]/div/div/div/div[1]/div/div/div/div/div/div[2]/a")).click();
-    Thread.sleep(3000);
+
     ((JavascriptExecutor)driver).executeScript("window.scrollBy(" + 0 + "," + 100 + ");");
+
     String result = driver.findElement(By.xpath("//*[@id=\"x1f5c2\"]/div/div/div/div[2]/span/span")).getText();
     result = result.substring(0 , result.length() - 2);
     final int checkResult = Integer.parseInt(result);
+
     driver.findElement(By.xpath("//*[@id=\"x1f5c2\"]/div/div/div/div[1]/div[1]/div/div[1]/div[2]/div/div[2]/ul/li[1]")).click();
     driver.findElement(By.xpath("//*[@id=\"x1f5c2\"]/div/div/div/div[1]/div[1]/div/div[2]/div[2]/div/div[2]/ul/li[1]")).click();
     driver.findElement(By.xpath("//*[@id=\"x1f5c2\"]/div/div/div/div[1]/div[1]/span/div[2]/div[1]/div/div/div[2]/span")).click();
@@ -22,21 +27,24 @@ public class CalculatorTest extends BaseRunner{
     result = driver.findElement(By.xpath("//*[@id=\"x1f5c2\"]/div/div/div/div[2]/span/span")).getText();
     result = result.substring(0 , result.length() - 2);
     int resultCalc = Integer.parseInt(result);
+    //Проверка калькулятора
     if (resultCalc == 0) {
       System.out.println("Calc OK");
     } else {
       throw new NullPointerException("Calculator is wrong");
     }
+    //Проверка доступности кнопки
     if (!driver.findElement(By.xpath("//*[@id=\"form-application\"]//button")).isEnabled()){
       System.out.println("button OK");
     } else {
       throw new NullPointerException("Button is wrong");
     }
+    //обновляем страницу
     driver.navigate().refresh();
-    Thread.sleep(3000);
     ((JavascriptExecutor)driver).executeScript("window.scrollBy(" + 0 + "," + (-20) + ");");
-    ((JavascriptExecutor)driver).executeScript("window.scrollBy(" + 0 + "," + 15 + ");");
-    result = driver.findElement(By.xpath("//*[@id=\"x1f5c2\"]/div/div/div/div[2]/span/span")).getText();
+    WebElement dynamicElement = (new WebDriverWait(driver, 20))
+        .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"x1f5c2\"]/div/div/div/div[2]/span/span")));
+    result = dynamicElement.getText();
     result = result.substring(0 , result.length() - 2);
     resultCalc = Integer.parseInt(result);
     if (resultCalc == checkResult) {
