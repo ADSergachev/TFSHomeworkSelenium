@@ -55,4 +55,17 @@ public class ProviderTinkoffMobile extends Page {
       driver.findElement(summ).sendKeys("0");
     }
   }
+
+  public void checkAuto(){
+    driver.findElement(numberOfTelephone).click();
+    driver.findElement(numberOfTelephone).clear();
+    driver.findElement(numberOfTelephone).sendKeys("123");
+    assertEquals(driver.findElement(numberOfTelephone).getAttribute("value"), "+7 (123) ");
+    driver.findElement(numberOfTelephone).sendKeys("123");
+    assertEquals(driver.findElement(numberOfTelephone).getAttribute("value"), "+7 (123) 123-");
+    driver.findElement(numberOfTelephone).sendKeys("12");
+    assertEquals(driver.findElement(numberOfTelephone).getAttribute("value"), "+7 (123) 123-12-");
+    driver.findElement(numberOfTelephone).sendKeys("12");
+    assertEquals(driver.findElement(numberOfTelephone).getAttribute("value"), "+7 (123) 123-12-12");
+  }
 }

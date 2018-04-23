@@ -50,6 +50,9 @@ public class PaymentTest extends BaseRunner {
     providerTinkoffMobile.maximizeSumm();
     providerTinkoffMobile.clickPayButton();
     providerTinkoffMobile.sumFieldTextValidator("0");
+
+    //проверка автоподстановки
+    providerTinkoffMobile.checkAuto();
   }
 
 }
